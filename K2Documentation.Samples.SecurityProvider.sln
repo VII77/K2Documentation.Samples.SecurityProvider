@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K2Documentation.Samples.Sec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceCode.Security.Providers.XmlFileProvider", "XmlFileProvider\SourceCode.Security.Providers.XmlFileProvider.csproj", "{56CF4A5E-1058-488B-9300-97686FD599A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{1F744A46-250E-49D3-A7E7-11D00146BF93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{7CA1F832-C7E2-417D-B25D-8AC25ED0E385}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{56CF4A5E-1058-488B-9300-97686FD599A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56CF4A5E-1058-488B-9300-97686FD599A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56CF4A5E-1058-488B-9300-97686FD599A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F744A46-250E-49D3-A7E7-11D00146BF93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F744A46-250E-49D3-A7E7-11D00146BF93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F744A46-250E-49D3-A7E7-11D00146BF93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F744A46-250E-49D3-A7E7-11D00146BF93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CA1F832-C7E2-417D-B25D-8AC25ED0E385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CA1F832-C7E2-417D-B25D-8AC25ED0E385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CA1F832-C7E2-417D-B25D-8AC25ED0E385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CA1F832-C7E2-417D-B25D-8AC25ED0E385}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
