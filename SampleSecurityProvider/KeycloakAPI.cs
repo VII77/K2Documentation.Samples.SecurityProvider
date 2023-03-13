@@ -37,12 +37,17 @@ namespace KeycloakAPI
 
         }
 
-        public async Task<List<KeycloakUser>> GetUsers()
+        public async Task<List<KeycloakUser>> GetUserByUsername(string username )
         {
             var accessToken = await GetAccessToken();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            var url = $"{_configData.BaseUrl}users";
+            var queryParameters = new Dictionary<string, string> {{ "username", username }};
+            var dictFormUrlEncoded = new FormUrlEncodedContent(queryParameters);
+            var queryString = await dictFormUrlEncoded.ReadAsStringAsync();
+
+
+            var url = $"{_configData.BaseUrl}users?{queryString}";
             var response = await _client.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
