@@ -30,7 +30,7 @@ namespace MyCompany.MySecurity
 
         #region IHostableType Members
 
-        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling, KeycloakApi keycloakApi)
+        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling, KeycloakAPIService keycloakApi)
         {
             //Initialize resources when Host Server starts up. This gets called when Authentication and RoleProvider
             //gets instantiated when HostServer starts up.
