@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using SampleSecurityProvider;
+using KeycloakAPI;
 using SourceCode.Hosting.Server.Interfaces;
 
 namespace MyCompany.MySecurity
@@ -178,6 +178,11 @@ namespace MyCompany.MySecurity
         string IRoleProvider.Login(string connectionString)
         {
             throw new Exception("The method or operation is not implemented.");
+        }
+
+        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
