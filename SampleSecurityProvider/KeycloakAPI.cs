@@ -8,16 +8,14 @@ using Newtonsoft.Json.Linq;
 
 namespace KeycloakAPI
 {
-    public class KeycloakApi
+    public class KeycloakAPIService
     {
         private string _baseUrl;
         private string _accessTokenRequestUrl;
         private Dictionary<string, string> _postParams;
-
         private HttpClient _client;
-        private string _userName;
 
-        public KeycloakApi(HttpClient client, ConfigurationData configData)
+        public KeycloakAPIService(HttpClient client, ConfigurationData configData)
         {
             _client = client;
             _postParams = configData.AccessTokenRequestPostParams;
