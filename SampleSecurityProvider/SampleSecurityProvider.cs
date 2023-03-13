@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using SampleSecurityProvider;
 using SourceCode.Hosting.Server.Interfaces;
 
 namespace MyCompany.MySecurity
@@ -30,7 +30,7 @@ namespace MyCompany.MySecurity
 
         #region IHostableType Members
 
-        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling)
+        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling, KeycloakApi keycloakApi)
         {
             //Initialize resources when Host Server starts up. This gets called when Authentication and RoleProvider
             //gets instantiated when HostServer starts up.
