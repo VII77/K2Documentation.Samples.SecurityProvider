@@ -94,7 +94,6 @@
   <ItemGroup>
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="KeycloakAPI.cs" />
-    <Compile Include="SampleSecurityProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
