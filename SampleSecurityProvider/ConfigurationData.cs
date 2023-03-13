@@ -51,4 +51,12 @@ namespace KeycloakAPI
         public int notBefore { get; set; }
         public Access access { get; set; }
     }
+
+    public class KeycloakGroup
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string path { get; set; }
+        public List<KeycloakGroup> subGroups { get; set; }
+    }
 }

@@ -59,6 +59,23 @@ namespace KeycloakAPI
             return JArray.Parse(json).ToObject<List<KeycloakUser>>();
         }
 
+        public async Task<List<KeycloakGroup>> GetGroups()
+        {
+            var accessToken = await GetAccessToken();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var url = $"{_configData.BaseUrl}groups?";
+            var response = await _client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JArray.Parse(json).ToObject<List<KeycloakGroup>>();
+        }
+
     }
 
 }
