@@ -19,7 +19,8 @@ namespace ConsoleApp2
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var keycloakapi = new KeycloakAPIService(client, new ConfigurationData());
-            var task = keycloakapi.GetUserByUsername("ulrich");
+            //var task = keycloakapi.GetUserByUsername("bob");
+            var task = keycloakapi.GetGroups();
             task.Wait();
             Console.WriteLine(task.Result);
         }

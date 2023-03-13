@@ -92,7 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationData.cs" />
+    <Compile Include="KeycloakObjects.cs" />
     <Compile Include="KeycloakAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleSecurityProvider.cs" />
