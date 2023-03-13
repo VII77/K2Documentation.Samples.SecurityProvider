@@ -95,6 +95,7 @@
     <Compile Include="ConfigurationData.cs" />
     <Compile Include="KeycloakAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleSecurityProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="References\SourceCode.HostClientAPI.dll" />
