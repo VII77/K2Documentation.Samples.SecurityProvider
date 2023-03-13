@@ -10,24 +10,19 @@ namespace KeycloakAPI
 {
     public class KeycloakAPIService
     {
-        private string _baseUrl;
-        private string _accessTokenRequestUrl;
-        private Dictionary<string, string> _postParams;
+        ConfigurationData _configData;
         private HttpClient _client;
 
         public KeycloakAPIService(HttpClient client, ConfigurationData configData)
         {
             _client = client;
-            _postParams = configData.AccessTokenRequestPostParams;
-            _baseUrl = configData.BaseUrl;
-            _accessTokenRequestUrl = configData.AccessTokenRequestUrl;
-            
+            _configData = configData;         
         }
 
         public async Task<string> GetAccessToken()
         {
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, _accessTokenRequestUrl);
-            requestMessage.Content = new FormUrlEncodedContent(_postParams);
+            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, _configData.AccessTokenRequestUrl);
+            requestMessage.Content = new FormUrlEncodedContent(_configData.AccessTokenRequestPostParams);
             HttpResponseMessage response = _client.SendAsync(requestMessage).Result;
 
             if (!response.IsSuccessStatusCode)
@@ -47,7 +42,7 @@ namespace KeycloakAPI
             var accessToken = await GetAccessToken();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            var url = $"{_baseUrl}users";
+            var url = $"{_configData.BaseUrl}users";
             var response = await _client.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
