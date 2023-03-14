@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7CA1F832-C7E2-417D-B25D-8AC25ED0E385}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ConsoleApp2</RootNamespace>
-    <AssemblyName>ConsoleApp2</AssemblyName>
+    <RootNamespace>Console</RootNamespace>
+    <AssemblyName>Console</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,9 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SampleSecurityProvider\K2Documentation.Samples.SecurityProvider.SampleSecurityProvider.csproj">
+    <ProjectReference Include="..\KeycloakUserManager\KeycloakUserManager.csproj">
       <Project>{5c2adf4b-ea99-47d0-8773-982415384fbc}</Project>
-      <Name>K2Documentation.Samples.SecurityProvider.SampleSecurityProvider</Name>
+      <Name>KeycloakUserManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
