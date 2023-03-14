@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using KeycloakAPI;
@@ -221,7 +222,19 @@ namespace MyCompany.MySecurity
     
         public IGroupCollection GetGroups(string userName,IDictionary<string,object> properties)    
         {
- 	        throw new Exception("The method or operation is not implemented.");
+            List<IGroup> groups = new GroupCollection();
+
+            KeycloakGroup group1 = new KeycloakGroup { GroupID = "1", GroupName = "SAMPLE Group1Name", path = "somePah1" };
+            KeycloakGroup group2 = new KeycloakGroup { GroupID = "2", GroupName = "SAMPLE Group22Name", path = "somePah22" };
+            //Group group2 = new KeycloakGroup(this.SecurityLabel, "SAMPLE Group2Name", "SAMPLE Group2Description", "group2@sample.com");
+
+            //add the group to the collection
+            groups.Add(group1);
+            groups.Add(group2);
+
+            return (IGroupCollection)groups;
+
+            throw new Exception("The method or operation is not implemented.");
         }      
     }
 }

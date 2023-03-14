@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SourceCode.Hosting.Server.Interfaces;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -36,13 +39,19 @@ namespace KeycloakAPI
         public bool manage { get; set; }
     }
 
-    public class KeycloakUser
+    public class KeycloakUser : IUser
     {
+        [JsonProperty("UserID")]
         public string id { get; set; }
+        [JsonIgnore]
         public long createdTimestamp { get; set; }
-        public string username { get; set; }
+
+        [JsonProperty("username")]
+        public string UserName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public bool enabled { get; set; }
+        [JsonIgnore]
         public bool totp { get; set; }
+        [JsonIgnore]
         public bool emailVerified { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
@@ -50,13 +59,43 @@ namespace KeycloakAPI
         public List<object> requiredActions { get; set; }
         public int notBefore { get; set; }
         public Access access { get; set; }
+        public IDictionary<string, object> Properties { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        [JsonProperty("id")]
+        public string UserID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 
-    public class KeycloakGroup
+    public class KeycloakGroup : IGroup
     {
-        public string id { get; set; }
-        public string name { get; set; }
+        //public string id { get; set; }
+        //public string name { get; set; }
+        [JsonIgnore]
         public string path { get; set; }
         public List<KeycloakGroup> subGroups { get; set; }
+        public IDictionary<string, object> Properties { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        [JsonProperty("name")]
+        public string GroupName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        [JsonProperty("id")]
+        public string GroupID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    }
+
+    public class GroupCollection : List<IGroup>, IGroupCollection
+    {
+        public new IGroup this[int index] => base[index];
+
+        public new IEnumerator GetEnumerator()
+        {
+           return base.GetEnumerator();
+        }
+    }
+
+    public class UserCollection : List<IUser>, IUserCollection
+    {
+        public new IUser this[int index] => base[index];
+
+        public new IEnumerator GetEnumerator()
+        {
+            return base.GetEnumerator();
+        }
     }
 }
