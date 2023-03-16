@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using KeycloakUserManager.KeycloakObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace KeycloakAPI
+namespace KeycloakUserManager.Services
 {
-    public class KeycloakAPIService
+    public class KeycloakAPI
     {
         ConfigurationData _configData;
         private HttpClient _client;
 
-        public KeycloakAPIService(HttpClient client, ConfigurationData configData)
+        public KeycloakAPI(HttpClient client, ConfigurationData configData)
         {
             _client = client;
             _configData = configData;         
@@ -37,7 +38,7 @@ namespace KeycloakAPI
 
         }
 
-        public async Task<List<KeycloakUser>> GetUserByUsername(string username )
+        public async Task<List<KeycloakUser>> GetUserByUsername(string username)
         {
             var accessToken = await GetAccessToken();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);

@@ -1,4 +1,6 @@
-﻿using KeycloakAPI;
+﻿using KeycloakUserManager;
+using KeycloakUserManager.KeycloakObjects;
+using KeycloakUserManager.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -18,7 +20,7 @@ namespace ConsoleApp2
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var keycloakapi = new KeycloakAPIService(client, new ConfigurationData());
+            var keycloakapi = new KeycloakAPI(client, new ConfigurationData());
             //var task = keycloakapi.GetUserByUsername("bob");
             var task = keycloakapi.GetGroups();
             task.Wait();

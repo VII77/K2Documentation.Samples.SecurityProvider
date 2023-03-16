@@ -1,242 +1,245 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using KeycloakAPI;
-using SourceCode.Hosting.Server.Interfaces;
+//using System;
+//using System.Collections;
+//using System.Collections.Generic;
+//using System.Text;
+//using KeycloakUserManager;
+//using KeycloakUserManager.DTOs;
+//using KeycloakUserManager.Services;
+//using SourceCode.Hosting.Server.Interfaces;
 
-namespace MyCompany.MySecurity
-{
-    public class SampleSecurityProvider : IHostableSecurityProvider
-    {
-        #region Private Members
+//namespace MyCompany.MySecurity
+//{
+//    public class SampleSecurityProvider : IHostableSecurityProvider
+//    {
+//        #region Private Members
 
-        private ISecurityManager _securityManager;
-        private IConfigurationManager _cfgMgr;
-        private string _labelName;
-        private string _url;
+//        private ISecurityManager _securityManager;
+//        private IConfigurationManager _cfgMgr;
+//        private string _labelName;
+//        private string _url;
 
-        private BackEndProvider _backEndProvider;
+//        private BackEndProvider _backEndProvider;
 
-        #endregion
+//        #endregion
 
-        #region IHostableSecurityProvider Members
+//        #region IHostableSecurityProvider Members
 
-        public bool RequiresAuthentication()
-        {
-            return false;
-        }
+//        public bool RequiresAuthentication()
+//        {
+//            return false;
+//        }
 
-        #endregion
+//        #endregion
 
-        #region IHostableType Members
+//        #region IHostableType Members
 
-        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling, KeycloakAPIService keycloakApi)
-        {
-            //Initialize resources when Host Server starts up. This gets called when Authentication and RoleProvider
-            //gets instantiated when HostServer starts up.
+//        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling, KeycloakAPI keycloakApi)
+//        {
+//            //Initialize resources when Host Server starts up. This gets called when Authentication and RoleProvider
+//            //gets instantiated when HostServer starts up.
 
-            _cfgMgr = ServiceMarshalling.GetConfigurationManagerContext();
-            _securityManager = ServerMarshaling.GetSecurityManagerContext();
-        }
+//            _cfgMgr = ServiceMarshalling.GetConfigurationManagerContext();
+//            _securityManager = ServerMarshaling.GetSecurityManagerContext();
+//            this._logger = (Logger)ServiceMarshalling.GetHostedService(typeof(Logger).ToString());
+//        }
 
-        public void Unload()
-        {
-            //Unload resources when Host Server Shuts down...
-        }
+//        public void Unload()
+//        {
+//            //Unload resources when Host Server Shuts down...
+//        }
 
-        #endregion
+//        #endregion
 
-        #region IAuthenticationProvider Members
+//        #region IAuthenticationProvider Members
 
-        bool IAuthenticationProvider.AuthenticateUser(string userName, string password, string extraData)
-        {
-            //Interpret extra data - this can be a token that has been encrypted...
-            SecurityToken token = SecurityToken.CreateToken(extraData);
+//        bool IAuthenticationProvider.AuthenticateUser(string userName, string password, string extraData)
+//        {
+//            //Interpret extra data - this can be a token that has been encrypted...
+//            SecurityToken token = SecurityToken.CreateToken(extraData);
             
-            //Connect to webservice using init value set from config....
-            BackEndProvider bp = new BackEndProvider();
-            bp.Initialize(_url);
+//            //Connect to webservice using init value set from config....
+//            BackEndProvider bp = new BackEndProvider();
+//            bp.Initialize(_url);
 
-            return bp.Authenticate(userName, password, token);
-        }
+//            return bp.Authenticate(userName, password, token);
+//        }
 
-        void IAuthenticationProvider.Init(string label, string authInit)
-        {
-            _labelName = label;
+//        void IAuthenticationProvider.Init(string label, string authInit)
+//        {
+//            _labelName = label;
 
-            _url = authInit;
-        }
+//            _url = authInit;
+//        }
 
-        string IAuthenticationProvider.Login(string connectionString)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+//        string IAuthenticationProvider.Login(string connectionString)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//        }
 
-        #endregion
+//        #endregion
 
-        #region IRoleProvider Members
+//        #region IRoleProvider Members
 
-        void IRoleProvider.Init(string label, string authInit)
-        {
-            _labelName = label;
+//        void IRoleProvider.Init(string label, string authInit)
+//        {
+//            _labelName = label;
 
-            _url = authInit;
-        }
+//            _url = authInit;
+//        }
 
-        IGroupCollection IRoleProvider.FindGroups(string userName, IDictionary<string, object> properties)
-        {
-            //Connect to webservice using init value set from config....
-            BackEndProvider bp = new BackEndProvider();
-            bp.Initialize(_url);
+//        IGroupCollection IRoleProvider.FindGroups(string userName, IDictionary<string, object> properties)
+//        {
+//            //Connect to webservice using init value set from config....
+//            BackEndProvider bp = new BackEndProvider();
+//            bp.Initialize(_url);
 
-            IGroupCollection groups = bp.GetGroups(userName, properties);
+//            IGroupCollection groups = bp.GetGroups(userName, properties);
 
-            return groups;
+//            return groups;
 
-            //Implement all other methods that has not been implemented in this sample in the same way....
-            //Get User/Group objects from back end and return objects that implement IUser/IGroup etc.
+//            //Implement all other methods that has not been implemented in this sample in the same way....
+//            //Get User/Group objects from back end and return objects that implement IUser/IGroup etc.
 
-        }
+//        }
 
-        IGroupCollection IRoleProvider.FindGroups(string userName, IDictionary<string, object> properties, string extraData)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+//        IGroupCollection IRoleProvider.FindGroups(string userName, IDictionary<string, object> properties, string extraData)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//        }
 
-        IUserCollection IRoleProvider.FindUsers(string groupName, IDictionary<string, object> properties)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+//        IUserCollection IRoleProvider.FindUsers(string groupName, IDictionary<string, object> properties)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//        }
 
-        IUserCollection IRoleProvider.FindUsers(string groupName, IDictionary<string, object> properties, string extraData)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+//        IUserCollection IRoleProvider.FindUsers(string groupName, IDictionary<string, object> properties, string extraData)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//        }
 
-        string IRoleProvider.FormatItemName(string name)
-        {
-            //Return name that Provider understandes:
-            //ex: if name = Johan and your BackEnd Provider uses ad domain notation this must return domain\johan
-            //the format for a provider will typically be set in Init using the AuthInit parameter or RoleInit parameter.
-            return name;
-        }
+//        string IRoleProvider.FormatItemName(string name)
+//        {
+//            //Return name that Provider understandes:
+//            //ex: if name = Johan and your BackEnd Provider uses ad domain notation this must return domain\johan
+//            //the format for a provider will typically be set in Init using the AuthInit parameter or RoleInit parameter.
+//            return name;
+//        }
 
-        IGroup IRoleProvider.GetGroup(string name)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+//        IGroup IRoleProvider.GetGroup(string name)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//        }
 
-        IGroup IRoleProvider.GetGroup(string name, string extraData)
-        {
-            throw new Exception("The method or operation is not implemented.");
-            //Interpret extra data - this can be a token that has been encrypted...
-            SecurityToken token = SecurityToken.CreateToken(extraData);
+//        IGroup IRoleProvider.GetGroup(string name, string extraData)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//            //Interpret extra data - this can be a token that has been encrypted...
+//            SecurityToken token = SecurityToken.CreateToken(extraData);
 
-            //Connect to webservice using init value set from config....
-            BackEndProvider bp = new BackEndProvider();
-            bp.Initialize(_url);
-        }
+//            //Connect to webservice using init value set from config....
+//            BackEndProvider bp = new BackEndProvider();
+//            bp.Initialize(_url);
+//        }
 
-        IUser IRoleProvider.GetUser(string name)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+//        IUser IRoleProvider.GetUser(string name)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//        }
 
-        IUser IRoleProvider.GetUser(string name, string extraData)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+//        IUser IRoleProvider.GetUser(string name, string extraData)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//        }
 
-        Dictionary<string, string> IRoleProvider.QueryGroupProperties()
-        {
-            Dictionary<string, string> groupProps = new Dictionary<string,string>();
-            groupProps.Add("Name", "System.String");
-            groupProps.Add("Description", "System.String");
-            groupProps.Add("Another Group Property", "System.String");
+//        Dictionary<string, string> IRoleProvider.QueryGroupProperties()
+//        {
+//            Dictionary<string, string> groupProps = new Dictionary<string,string>();
+//            groupProps.Add("Name", "System.String");
+//            groupProps.Add("Description", "System.String");
+//            groupProps.Add("Another Group Property", "System.String");
 
-            return groupProps;
-        }
+//            return groupProps;
+//        }
 
-        Dictionary<string, string> IRoleProvider.QueryUserProperties()
-        {
-            Dictionary<string, string> userProperties = new Dictionary<string,string>();
-            userProperties.Add("Name", "System.String");
-            userProperties.Add("Description", "System.String");
-            userProperties.Add("Email", "System.String");
-            userProperties.Add("Manager", "System.String");
-            userProperties.Add("AdditionalCustomProperties", "String.Empty");
+//        Dictionary<string, string> IRoleProvider.QueryUserProperties()
+//        {
+//            Dictionary<string, string> userProperties = new Dictionary<string,string>();
+//            userProperties.Add("Name", "System.String");
+//            userProperties.Add("Description", "System.String");
+//            userProperties.Add("Email", "System.String");
+//            userProperties.Add("Manager", "System.String");
+//            userProperties.Add("AdditionalCustomProperties", "String.Empty");
 
-            return userProperties;
-        }
+//            return userProperties;
+//        }
 
-        System.Collections.ArrayList IRoleProvider.ResolveQueue(string data)
-        {
-            return null;
-            //Backwards compatibility...
-        }
+//        System.Collections.ArrayList IRoleProvider.ResolveQueue(string data)
+//        {
+//            return null;
+//            //Backwards compatibility...
+//        }
 
-        string IRoleProvider.Login(string connectionString)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
+//        string IRoleProvider.Login(string connectionString)
+//        {
+//            throw new Exception("The method or operation is not implemented.");
+//        }
 
-        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling)
-        {
-            throw new NotImplementedException();
-        }
+//        public void Init(IServiceMarshalling ServiceMarshalling, IServerMarshaling ServerMarshaling)
+//        {
+//            throw new NotImplementedException();
+//        }
 
-        #endregion
-    }
+//        #endregion
+//    }
 
-    public class SecurityToken
-    {
-        public static SecurityToken CreateToken(string encryptedToken)
-        {
-            return new SecurityToken();
-        }
+//    public class SecurityToken
+//    {
+//        public static SecurityToken CreateToken(string encryptedToken)
+//        {
+//            return new SecurityToken();
+//        }
 
-        public string AProperty = string.Empty;
-        public string BProperty = string.Empty;
-    }
+//        public string AProperty = string.Empty;
+//        public string BProperty = string.Empty;
+//    }
 
-    public class BackEndProvider
-    {
-        public bool Initialize(string url)
-        {
-            //Connect to actual webService...
-            return true;
-        }
+//    public class BackEndProvider
+//    {
+//        public bool Initialize(string url)
+//        {
+//            //Connect to actual webService...
+//            return true;
+//        }
 
-        public bool Authenticate(string userName, string passWord, SecurityToken securityToken)
-        {
-            //Autheticate user...
-            return true;
-        }
+//        public bool Authenticate(string userName, string passWord, SecurityToken securityToken)
+//        {
+//            //Autheticate user...
+//            return true;
+//        }
 
-        public string GetUser(string name)
-        {
-            //get user from backend and convert to string....
-            return string.Empty;
-        }
+//        public string GetUser(string name)
+//        {
+//            //get user from backend and convert to string....
+//            return string.Empty;
+//        }
     
-        public IGroupCollection GetGroups(string userName,IDictionary<string,object> properties)    
-        {
-            List<IGroup> groups = new GroupCollection();
-            var dic = new Dictionary<string, object>();
-            dic.Add("sampleProp1", "sampleValue2");
+//        public IGroupCollection GetGroups(string userName,IDictionary<string,object> properties)    
+//        {
+//            List<IGroup> groups = new GroupCollectionDTO();
+//            var dic = new Dictionary<string, object>();
+//            dic.Add("sampleProp1", "sampleValue2");
 
-            KeycloakGroup group1 = new KeycloakGroup { GroupID = "1", GroupName = "SAMPLE Group1Name", path = "somePah1" };
-            KeycloakGroup group2 = new KeycloakGroup { GroupID = "2", GroupName = "SAMPLE Group22Name", path = "somePah22", Properties = dic  };
-            //Group group2 = new KeycloakGroup(this.SecurityLabel, "SAMPLE Group2Name", "SAMPLE Group2Description", "group2@sample.com");
+//            GroupDTO group1 = new GroupDTO { GroupID = "1", GroupName = "SAMPLE Group1Name",  };
+//            GroupDTO group2 = new GroupDTO { GroupID = "2", GroupName = "SAMPLE Group22Name", Properties = dic  };
+//            //Group group2 = new KeycloakGroup(this.SecurityLabel, "SAMPLE Group2Name", "SAMPLE Group2Description", "group2@sample.com");
 
-            //add the group to the collection
-            groups.Add(group1);
-            groups.Add(group2);
+//            //add the group to the collection
+//            groups.Add(group1);
+//            groups.Add(group2);
 
-            return (IGroupCollection)groups;
+//            return (IGroupCollection)groups;
 
-            throw new Exception("The method or operation is not implemented.");
-        }      
-    }
-}
+//            throw new Exception("The method or operation is not implemented.");
+//        }      
+//    }
+//}
