@@ -1,11 +1,11 @@
-﻿using KeycloakUserManager.DTOs;
+﻿using KeycloakUserManager.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeycloakUserManager.KeycloakObjects
+namespace KeycloakUserManager.API.KeycloakObjects
 {
     public class KeycloakGroup
     {

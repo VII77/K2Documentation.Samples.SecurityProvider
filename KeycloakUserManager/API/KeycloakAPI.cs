@@ -4,11 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using KeycloakUserManager.KeycloakObjects;
+using KeycloakUserManager.API.KeycloakObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace KeycloakUserManager.Services
+namespace KeycloakUserManager.API
 {
     public class KeycloakAPI
     {
@@ -116,6 +116,25 @@ namespace KeycloakUserManager.Services
 
             var json = await response.Content.ReadAsStringAsync();
             return JArray.Parse(json).ToObject<List<KeycloakGroup>>();
+        }
+
+        public async Task<List<KeycloakUser>> GetGroupMembers(string groupName)
+        {
+            var accessToken = await GetAccessToken();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var group = await this.GetGroupByGroupName(groupName);
+
+            var url = $"{_configData.BaseUrl}groups/{group.id}/members";
+            var response = await _client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JArray.Parse(json).ToObject<List<KeycloakUser>>();
         }
     }
 

@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeycloakUserManager.DTOs
+namespace KeycloakUserManager.Service.DTOs
 {
-    public class GroupCollectionDTO : List<IGroup>, IGroupCollection
+    public class UserCollectionDTO : List<IUser>, IUserCollection
     {
-        public new IGroup this[int index] => base[index];
+        public new IUser this[int index] => base[index];
 
         public new IEnumerator GetEnumerator()
         {

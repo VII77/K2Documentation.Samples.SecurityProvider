@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeycloakUserManager.DTOs
+namespace KeycloakUserManager.Service.DTOs
 {
     public class UserDTO : IUser
     {

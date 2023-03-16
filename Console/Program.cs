@@ -1,6 +1,6 @@
 ﻿using KeycloakUserManager;
-using KeycloakUserManager.KeycloakObjects;
-using KeycloakUserManager.Services;
+using KeycloakUserManager.API;
+using KeycloakUserManager.API.KeycloakObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;

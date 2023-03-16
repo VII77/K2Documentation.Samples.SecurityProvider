@@ -1,9 +1,13 @@
-﻿using KeycloakUserManager.DTOs;
+﻿using KeycloakUserManager.API;
+using KeycloakUserManager.API.KeycloakObjects;
+using KeycloakUserManager.Service;
+using KeycloakUserManager.Service.DTOs;
 using SourceCode.Hosting.Server.Interfaces;
 using SourceCode.Logging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace KeycloakUserManager
 {
@@ -31,6 +35,8 @@ namespace KeycloakUserManager
             /// Local securityLabel variable used to reference the assigned security label from Init().
             ///</summary>
         private string _securityLabel = string.Empty;
+
+        private KeycloakService _keycloakService;
         public string SecurityLabel
         {
             get
@@ -50,6 +56,10 @@ namespace KeycloakUserManager
         public KeycloakSecurityProvider()
         {
             // No implementation necessary.
+            var httpClient = new HttpClient();
+            var configData = new ConfigurationData();
+            var keycloakapi = new KeycloakAPI(httpClient, configData);
+            _keycloakService = new KeycloakService(keycloakapi);
         }
 
         ///<summary>
@@ -160,21 +170,14 @@ namespace KeycloakUserManager
             //add Group objects to the collection and finally return the collection
 
             //the collection that we will populate and finally return
+
             GroupCollectionDTO groups = new GroupCollectionDTO();
 
             try
             {
-                //sample of logging debug output
-                _logger.LogDebugMessage(base.GetType().ToString() + ".FindGroups", "Finding groups for user: " + userName);
-
-                //define a Group object and add it to the collection.
-                //you would probably do this in a for each loop. Here we are just adding two sample groups for demo purposes
-                GroupDTO group1 = new GroupDTO { GroupID = "1", GroupName = "SAMPLE Group1Name", };
-                GroupDTO group2 = new GroupDTO { GroupID = "2", GroupName = "SAMPLE Group22Name" };
-
-                //add the group to the collection
-                groups.Add(group1);
-                groups.Add(group2);
+                var task = _keycloakService.FindGroups(userName);
+                task.Wait();
+                groups = task.Result;
             }
             catch (Exception ex)
             {
@@ -220,11 +223,9 @@ namespace KeycloakUserManager
             GroupDTO group = null;
             try
             {
-                //sample of logging debug output
-                _logger.LogDebugMessage(base.GetType().ToString() + ".GetGroup", "Group: " + name);
-
-                //TODO: Instantiate the group object and set properties. Here we are just adding a sample group for demo purposes
-                group = new GroupDTO { GroupID = "1111", GroupName = "SAMPLE Group1111Name" };
+                var task = _keycloakService.GetGroup(name);
+                task.Wait();
+                group = task.Result;
             }
             catch (Exception ex)
             {
@@ -290,16 +291,9 @@ namespace KeycloakUserManager
 
             try
             {
-                //sample of logging debug output
-                _logger.LogDebugMessage(base.GetType().ToString() + ".FindUsers", "Group: " + groupName);
-
-                //define a User object and add it to the collection.
-                //you would probably do this in a for each loop. Here we are just adding two sample users for demo purposes
-                UserDTO user1 = new UserDTO { UserID = "111", UserName = "SAMPLE User1111" };
-                UserDTO user2 = new UserDTO { UserID = "222", UserName = "SAMPLE User2222" };
-                //add users to the collection
-                users.Add(user1);
-                users.Add(user2);
+                var task = _keycloakService.FindUsers(groupName);
+                task.Wait();
+                users = task.Result;
             }
             catch (Exception ex)
             {
@@ -347,12 +341,9 @@ namespace KeycloakUserManager
 
             try
             {
-                //sample of logging debug output
-                _logger.LogDebugMessage(base.GetType().ToString() + ".GetUser", "User: " + name);
-
-                //TODO: Instantiate the user object and set properties.
-                //Here we are just returning a sample user for demonstration purposes
-                user = new UserDTO { UserID = "111", UserName = "SAMPLE User1111" };
+                var task = _keycloakService.GetUser(name);
+                task.Wait();
+                user = task.Result;
             }
             catch (Exception ex)
             {

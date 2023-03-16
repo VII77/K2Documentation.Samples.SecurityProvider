@@ -38,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>keycloakKeyFile.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -96,17 +102,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\GroupCollectionDTO.cs" />
-    <Compile Include="DTOs\GroupDTO.cs" />
-    <Compile Include="DTOs\UserCollectionDTO.cs" />
-    <Compile Include="DTOs\UserDTO.cs" />
-    <Compile Include="KeycloakObjects\ConfigurationData.cs" />
-    <Compile Include="KeycloakObjects\KeycloakGroup.cs" />
-    <Compile Include="KeycloakObjects\KeycloakUser.cs" />
+    <Compile Include="Service\DTOs\GroupCollectionDTO.cs" />
+    <Compile Include="Service\DTOs\GroupDTO.cs" />
+    <Compile Include="Service\DTOs\UserCollectionDTO.cs" />
+    <Compile Include="Service\DTOs\UserDTO.cs" />
+    <Compile Include="API\KeycloakObjects\ConfigurationData.cs" />
+    <Compile Include="API\KeycloakObjects\KeycloakGroup.cs" />
+    <Compile Include="API\KeycloakObjects\KeycloakUser.cs" />
     <Compile Include="KeycloakSecurityProvider.cs" />
-    <Compile Include="Services\KeycloakAPI.cs" />
+    <Compile Include="API\KeycloakAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleSecurityProvider.cs" />
+    <Compile Include="Service\KeycloakService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="References\SourceCode.HostClientAPI.dll" />
@@ -115,6 +122,7 @@
     <Content Include="Resources\K2Documentation.Samples.SecurityProvider.CustomUserManagerRegistration.sql" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="keycloakKeyFile.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
