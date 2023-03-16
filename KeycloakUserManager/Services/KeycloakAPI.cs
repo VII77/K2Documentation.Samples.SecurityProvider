@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace KeycloakUserManager.Services
         {
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, _configData.AccessTokenRequestUrl);
             requestMessage.Content = new FormUrlEncodedContent(_configData.AccessTokenRequestPostParams);
-            var response = _client.SendAsync(requestMessage).Result;
+            var response = await _client.SendAsync(requestMessage);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -38,7 +39,7 @@ namespace KeycloakUserManager.Services
 
         }
 
-        public async Task<List<KeycloakUser>> GetUserByUsername(string username)
+        public async Task<KeycloakUser> GetUserByUsername(string username)
         {
             var accessToken = await GetAccessToken();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -57,7 +58,7 @@ namespace KeycloakUserManager.Services
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            return JArray.Parse(json).ToObject<List<KeycloakUser>>();
+            return JArray.Parse(json).ToObject<List<KeycloakUser>>().FirstOrDefault();
         }
 
         public async Task<List<KeycloakGroup>> GetGroups()
@@ -77,6 +78,24 @@ namespace KeycloakUserManager.Services
             return JArray.Parse(json).ToObject<List<KeycloakGroup>>();
         }
 
+        public async Task<List<KeycloakGroup>> GetGroupsByUsername(string username)
+        {
+            var accessToken = await GetAccessToken();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var user = await this.GetUserByUsername(username);
+
+            var url = $"{_configData.BaseUrl}users/{user.id}/groups";
+            var response = await _client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JArray.Parse(json).ToObject<List<KeycloakGroup>>();
+        }
     }
 
 }
