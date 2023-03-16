@@ -17,6 +17,12 @@ namespace KeycloakUserManager.KeycloakObjects
         public GroupDTO MapToGroupDTO()
         {
             var dic = new Dictionary<string, object>();
+
+            foreach (var item in typeof(KeycloakUser).GetProperties())
+            {
+                dic.Add(item.Name, item.GetValue(this));
+            }
+
             var groupDto = new GroupDTO()
             {
                 GroupID = id,

@@ -78,6 +78,27 @@ namespace KeycloakUserManager.Services
             return JArray.Parse(json).ToObject<List<KeycloakGroup>>();
         }
 
+        public async Task<KeycloakGroup> GetGroupByGroupName(string groupName)
+        {
+            var accessToken = await GetAccessToken();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var queryParameters = new Dictionary<string, string> { { "search", groupName } };
+            var dictFormUrlEncoded = new FormUrlEncodedContent(queryParameters);
+            var queryString = await dictFormUrlEncoded.ReadAsStringAsync();
+
+            var url = $"{_configData.BaseUrl}groups?{queryString}";
+            var response = await _client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JArray.Parse(json).ToObject<List<KeycloakGroup>>().FirstOrDefault();
+        }
+
         public async Task<List<KeycloakGroup>> GetGroupsByUsername(string username)
         {
             var accessToken = await GetAccessToken();
