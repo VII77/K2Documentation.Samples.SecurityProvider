@@ -24,7 +24,7 @@ namespace KeycloakUserManager.Services
         {
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, _configData.AccessTokenRequestUrl);
             requestMessage.Content = new FormUrlEncodedContent(_configData.AccessTokenRequestPostParams);
-            HttpResponseMessage response = await _client.SendAsync(requestMessage).Result;
+            var response = _client.SendAsync(requestMessage).Result;
 
             if (!response.IsSuccessStatusCode)
             {
