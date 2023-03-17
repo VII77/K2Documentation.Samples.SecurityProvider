@@ -33,6 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SourceCode.HostClientAPI">
+      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.HostClientAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="SourceCode.HostServerInterfaces">
+      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.HostServerInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="SourceCode.Logging">
+      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />

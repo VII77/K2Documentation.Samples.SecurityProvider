@@ -51,14 +51,15 @@
     <Reference Include="SourceCode.HostClientAPI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=16a2c5aaaa1b130d, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\myReferences\SourceCode.HostClientAPI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="SourceCode.HostServerInterfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=16a2c5aaaa1b130d, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\myReferences\SourceCode.HostServerInterfaces.dll</HintPath>
+    <Reference Include="SourceCode.HostServerInterfaces">
+      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.HostServerInterfaces.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="SourceCode.Logging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=16a2c5aaaa1b130d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\myReferences\SourceCode.Logging.dll</HintPath>
+    <Reference Include="SourceCode.Logging">
+      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.Logging.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
