@@ -252,41 +252,46 @@
             task.Wait();
             var users = task.Result;
 
-            UserDTO x = null;
-            if (users.Count > 0)
-            {
-                x = (UserDTO)users[0];
-            }
+            //UserDTO x = null;
+            //if (users.Count > 0)
+            //{
+            //    x = (UserDTO)users[0];
+            //}
 
-            var email = x.Properties["email"];
+            //var email = x.Properties["email"];
 
-            Dictionary<string, object> matthewProperties = new Dictionary<string, object>
-            {
-                { "UserPrincipalName", "matthew.vorster@nintex.com" },
-                { "Name", "matthew.vorster@nintex.com" },
-                { "Description", "Matthew Test Account" },
-                { "Email", email },
-                { "DisplayName", "Matthew Vorster" },
-                { "CommonName", "U1" },
-                { "ObjectSID", "11342" },
-            };
+            //foreach (UserDTO u in users)
+            //{
+            //    u.
+            //}
+
+            //Dictionary<string, object> matthewProperties = new Dictionary<string, object>
+            //{
+            //    { "UserPrincipalName", "matthew.vorster@nintex.com" },
+            //    { "Name", "matthew.vorster@nintex.com" },
+            //    { "Description", "Matthew Test Account" },
+            //    { "Email", email },
+            //    { "DisplayName", "Matthew Vorster" },
+            //    { "CommonName", "U1" },
+            //    { "ObjectSID", "11342" },
+            //};
 
 
-            Console.WriteLine("**** FindUsers CALLED ****");
+            //Console.WriteLine("**** FindUsers CALLED ****");
 
-            UserCollectionDTO retCol = new UserCollectionDTO();
-            UserDTO user = new UserDTO
-            {
-                UserID = "c613c096-ef29-4394-b3c1-778a0f61b37e",
-                UserName = "matthew.vorster@nintex.com",
-                Properties = matthewProperties
-            };
+            //UserCollectionDTO retCol = new UserCollectionDTO();
+            //UserDTO user = new UserDTO
+            //{
+            //    UserID = "c613c096-ef29-4394-b3c1-778a0f61b37e",
+            //    UserName = "matthew.vorster@nintex.com",
+            //    Properties = matthewProperties
+            //};
 
-            user.UserName = x.UserName;
+            //user.UserName = x.UserName;
             
-            retCol.Add(user);
+            //retCol.Add(user);
 
-            return retCol;
+            return users;
         }
 
         ///<summary>

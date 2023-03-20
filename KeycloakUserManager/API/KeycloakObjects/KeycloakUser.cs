@@ -27,12 +27,16 @@ namespace KeycloakUserManager.API.KeycloakObjects
 
         public UserDTO MapToUserDTO()
         {
-            var dic = new Dictionary<string, object>();
-
-            foreach (var item in typeof(KeycloakUser).GetProperties())
+            var dic = new Dictionary<string, object>()
             {
-                dic.Add(item.Name, item.GetValue(this));
-            }
+                { "UserPrincipalName", String.Empty },
+                { "Name", this.userame },
+                { "Description", String.Empty },
+                { "Email", this.email },
+                { "DisplayName", string.Empty },
+                { "CommonName", String.Empty },
+                { "ObjectSID", this.id },
+            };
 
             var userDto = new UserDTO()
             {
