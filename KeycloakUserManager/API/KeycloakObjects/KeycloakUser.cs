@@ -19,6 +19,7 @@ namespace KeycloakUserManager.API.KeycloakObjects
         public bool emailVerified { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public string email { get; set; }
         public List<object> disableableCredentialTypes { get; set; }
         public List<object> requiredActions { get; set; }
         public int notBefore { get; set; }

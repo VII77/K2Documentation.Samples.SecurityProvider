@@ -26,7 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -53,8 +53,9 @@
       <HintPath>..\..\myReferences\SourceCode.HostClientAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SourceCode.HostServerInterfaces">
-      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.HostServerInterfaces.dll</HintPath>
+    <Reference Include="SourceCode.HostServerInterfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=16a2c5aaaa1b130d, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\SourceCode.HostServerInterfaces.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SourceCode.Logging">

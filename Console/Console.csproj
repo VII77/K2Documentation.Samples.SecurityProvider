@@ -14,7 +14,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -33,14 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SourceCode.HostClientAPI">
-      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.HostClientAPI.dll</HintPath>
+    <Reference Include="SourceCode.HostClientAPI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=16a2c5aaaa1b130d, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\K2\Host Server\Bin\SourceCode.HostClientAPI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="SourceCode.HostServerInterfaces">
-      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.HostServerInterfaces.dll</HintPath>
+    <Reference Include="SourceCode.HostServerInterfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=16a2c5aaaa1b130d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\K2\Host Server\Bin\SourceCode.HostServerInterfaces.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="SourceCode.Logging">
-      <HintPath>..\..\..\Users\RoesslU\OneDrive - Nintex\Desktop\SourceCode.Logging.dll</HintPath>
+    <Reference Include="SourceCode.Logging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=16a2c5aaaa1b130d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\K2\Host Server\Bin\SourceCode.Logging.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -57,7 +63,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KeycloakUserManager\KeycloakUserManager.csproj">

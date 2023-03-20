@@ -18,7 +18,7 @@ namespace KeycloakUserManager.API.KeycloakObjects
         {
             var dic = new Dictionary<string, object>();
 
-            foreach (var item in typeof(KeycloakUser).GetProperties())
+            foreach (var item in typeof(KeycloakGroup).GetProperties())
             {
                 dic.Add(item.Name, item.GetValue(this));
             }
