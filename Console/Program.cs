@@ -36,7 +36,7 @@ namespace ConsoleApp2
             task3.Wait();
             Console.WriteLine(task3.Result);
 
-            var task4 = service.GetUser("alfred");
+            var task4 = service.GetUser("asd");
             task4.Wait();
             Console.WriteLine(task4.Result);
         }

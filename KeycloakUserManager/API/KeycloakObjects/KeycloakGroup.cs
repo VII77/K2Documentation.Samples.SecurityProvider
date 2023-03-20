@@ -50,10 +50,6 @@ namespace KeycloakUserManager.API.KeycloakObjects
                
             //           </ k:group >
 
-            foreach (var item in typeof(KeycloakGroup).GetProperties())
-            {
-                dic.Add(item.Name, item.GetValue(this));
-            }
 
             var groupDto = new GroupDTO()
             {
