@@ -14,11 +14,17 @@ namespace KeycloakUserManager.API
     {
         private ConfigurationData _configData;
         private HttpClient _client;
+        private string _accessToken;
 
         public KeycloakAPI(HttpClient client, ConfigurationData configData)
         {
             _client = client;
-            _configData = configData;         
+            _configData = configData;
+            var GetTokenTask = this.GetAccessToken();
+            GetTokenTask.Wait();
+            _accessToken = GetTokenTask.Result;
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+
         }
 
         public async Task<string> GetAccessToken()
@@ -41,9 +47,6 @@ namespace KeycloakUserManager.API
 
         public async Task<KeycloakUser> GetUserByUsername(string username)
         {
-            var accessToken = await GetAccessToken();
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
             var queryParameters = new Dictionary<string, string> {{ "username", username }};
             var dictFormUrlEncoded = new FormUrlEncodedContent(queryParameters);
             var queryString = await dictFormUrlEncoded.ReadAsStringAsync();
@@ -63,9 +66,6 @@ namespace KeycloakUserManager.API
 
         public async Task<List<KeycloakGroup>> GetGroups()
         {
-            var accessToken = await GetAccessToken();
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
             var url = $"{_configData.BaseUrl}groups?";
             var response = await _client.GetAsync(url);
 
@@ -80,9 +80,6 @@ namespace KeycloakUserManager.API
 
         public async Task<KeycloakGroup> GetGroupByGroupName(string groupName)
         {
-            var accessToken = await GetAccessToken();
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
             var queryParameters = new Dictionary<string, string> { { "search", groupName } };
             var dictFormUrlEncoded = new FormUrlEncodedContent(queryParameters);
             var queryString = await dictFormUrlEncoded.ReadAsStringAsync();
@@ -101,9 +98,6 @@ namespace KeycloakUserManager.API
 
         public async Task<List<KeycloakGroup>> GetGroupsByUsername(string username)
         {
-            var accessToken = await GetAccessToken();
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
             var user = await this.GetUserByUsername(username);
 
             var url = $"{_configData.BaseUrl}users/{user.id}/groups";
@@ -122,9 +116,6 @@ namespace KeycloakUserManager.API
         {
             if (groupName != null)
             {
-                var accessToken = await GetAccessToken();
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
                 var group = await this.GetGroupByGroupName(groupName);
 
                 var url = $"{_configData.BaseUrl}groups/{group.id}/members";
