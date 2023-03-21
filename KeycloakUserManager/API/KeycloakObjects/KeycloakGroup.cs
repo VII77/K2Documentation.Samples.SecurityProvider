@@ -21,10 +21,10 @@ namespace KeycloakUserManager.API.KeycloakObjects
             {
                 this.Attributes = new Dictionary<string, object>()
             {
-                { "name", null },
-                { "email", null },
-                { "fullName", null },
-                { "description", null },
+                { "name", string.Empty },
+                { "email", string.Empty },
+                { "fullName", string.Empty },
+                { "description", string.Empty },
             };
             }
 
@@ -41,13 +41,13 @@ namespace KeycloakUserManager.API.KeycloakObjects
             };
 
             //< k:group name = "Test\G1" email = "G1@test.com" fullName = "Group 1" description = "Group 1 Description" >
-      
+
             //      < k:member name = "Test\U1" type = "User" />
-         
+
             //         < k:member name = "Test\U2" type = "User" />
-            
+
             //            < k:member name = "Test\U3" type = "User" />
-               
+
             //           </ k:group >
 
 
@@ -55,7 +55,7 @@ namespace KeycloakUserManager.API.KeycloakObjects
             {
                 GroupID = id,
                 GroupName = name,
-                Properties = dic
+                Properties = this.Attributes
             };
 
             return groupDto;

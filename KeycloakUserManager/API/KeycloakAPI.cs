@@ -12,7 +12,7 @@ namespace KeycloakUserManager.API
 {
     public class KeycloakAPI
     {
-        ConfigurationData _configData;
+        private ConfigurationData _configData;
         private HttpClient _client;
 
         public KeycloakAPI(HttpClient client, ConfigurationData configData)
@@ -120,21 +120,28 @@ namespace KeycloakUserManager.API
 
         public async Task<List<KeycloakUser>> GetGroupMembers(string groupName)
         {
-            var accessToken = await GetAccessToken();
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            var group = await this.GetGroupByGroupName(groupName);
-
-            var url = $"{_configData.BaseUrl}groups/{group.id}/members";
-            var response = await _client.GetAsync(url);
-
-            if (!response.IsSuccessStatusCode)
+            if (groupName != null)
             {
-                throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
+                var accessToken = await GetAccessToken();
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+                var group = await this.GetGroupByGroupName(groupName);
+
+                var url = $"{_configData.BaseUrl}groups/{group.id}/members";
+                var response = await _client.GetAsync(url);
+
+
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
+                }
+
+                var json = await response.Content.ReadAsStringAsync();
+                return JArray.Parse(json).ToObject<List<KeycloakUser>>();
             }
 
-            var json = await response.Content.ReadAsStringAsync();
-            return JArray.Parse(json).ToObject<List<KeycloakUser>>();
+            return new List<KeycloakUser>();
         }
     }
 

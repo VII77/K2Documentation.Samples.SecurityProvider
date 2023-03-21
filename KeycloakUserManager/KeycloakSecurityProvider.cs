@@ -153,7 +153,7 @@
         {
             //TODO: Add code to retrieve groups for a specific user
 
-            throw new NotImplementedException();
+           return this.FindGroups(userName, properties, null);
 
         }
 
@@ -166,6 +166,15 @@
         ///<returns>An IGroupCollection representing the groups which were found.</returns>
         public IGroupCollection FindGroups(string userName, IDictionary<string, object> properties, string extraData)
         {
+
+            var httpClient = new HttpClient();
+            var configData = new ConfigurationData();
+            var keycloakapi = new KeycloakAPI(httpClient, configData);
+            var keycloakService = new KeycloakService(keycloakapi);
+
+            var task = keycloakService.FindGroups((string)properties["Name"]);
+            task.Wait();
+            var groups = task.Result;
             //TODO: Add group retrieval code for a specific user, using extradata
 
             //throw new NotImplementedException();
@@ -173,7 +182,7 @@
 
             //if necessary, use the extraData parameter to perform additional processing
 
-            return FindGroups(userName, properties);
+            return groups;
         }
 
         ///<summary>
@@ -248,7 +257,7 @@
             var keycloakapi = new KeycloakAPI(httpClient, configData);
             var keycloakService = new KeycloakService(keycloakapi);
 
-            var task = keycloakService.FindUsers(groupName);
+            var task = keycloakService.FindUsers((string)properties["Name"]);
             task.Wait();
             var users = task.Result;
 
