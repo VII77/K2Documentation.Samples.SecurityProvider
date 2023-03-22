@@ -22,14 +22,14 @@ namespace KeycloakUserManager.Service
         {
             var groups = await _keycloakAPI.GetGroupsByUsername(username);
             var result = new GroupCollectionDTO();
-            groups.ForEach(group => result.Add(group.MapToGroupDTO()));
+            groups.ForEach(group => result.Add(new GroupDTO(group)));
             return result;
         }
 
         public async Task<GroupDTO> GetGroup(string groupName)
         {
             var group = await _keycloakAPI.GetGroupByGroupName(groupName);
-            return group.MapToGroupDTO();
+            return new GroupDTO(group);
         }
         public async Task<UserCollectionDTO> FindUsers(string groupName)
         {

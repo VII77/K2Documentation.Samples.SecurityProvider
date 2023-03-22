@@ -223,12 +223,8 @@
         ///<returns>A Dictionary containing the general group properties.</returns>
         public Dictionary<string, string> QueryGroupProperties()
         {
-            Dictionary<string, string> groupProps = new Dictionary<string, string>();
-            groupProps.Add("Name", "System.String");
-            groupProps.Add("Description", "System.String");
-            groupProps.Add("Another Group Property", "System.String");
-
-            return groupProps;
+            
+            return GroupDTO.PropertyNames; 
         }
 
         ///<summary>

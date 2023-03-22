@@ -17,30 +17,30 @@ namespace KeycloakUserManager.API.KeycloakObjects
 
         public KeycloakGroup()
         {
-            if (this.Attributes == null)
-            {
-                this.Attributes = new Dictionary<string, object>()
-            {
-                { "GroupID", this.id },
-                { "Name", this.name },
-                { "Email", string.Empty },
-                { "GroupName", this.name },
-                { "Description", string.Empty },
-            };
-            }
+            //if (this.Attributes == null)
+            //{
+            //    this.Attributes = new Dictionary<string, object>()
+            //{
+            //    { "GroupID", this.id },
+            //    { "Name", this.name },
+            //    { "Email", string.Empty },
+            //    { "GroupName", this.name },
+            //    { "Description", string.Empty },
+            //};
+            //}
 
         }
 
-        public GroupDTO MapToGroupDTO()
-        {
-            var dic = new Dictionary<string, object>()
-            {
-                {"Name", this.Attributes["Name"] ?? this.name },
-                {"Email", this.Attributes["Email"] ?? string.Empty },
-                {"Description", this.Attributes["Description"] ?? string.Empty },
-                {"GroupName", this.Attributes["GroupName"] ?? string.Empty },
-                {"GroupID", this.Attributes["GroupID"] ?? string.Empty }
-            };
+        //public GroupDTO MapToGroupDTO()
+        //{
+        //    var dic = new Dictionary<string, object>()
+        //    {
+        //        {"Name", this.Attributes["Name"] ?? this.name },
+        //        {"Email", this.Attributes["Email"] ?? string.Empty },
+        //        {"Description", this.Attributes["Description"] ?? string.Empty },
+        //        {"GroupName", this.Attributes["GroupName"] ?? string.Empty },
+        //        {"GroupID", this.Attributes["GroupID"] ?? string.Empty }
+        //    };
 
             //< k:group name = "Test\G1" email = "G1@test.com" fullName = "Group 1" description = "Group 1 Description" >
 
@@ -53,14 +53,14 @@ namespace KeycloakUserManager.API.KeycloakObjects
             //           </ k:group >
 
 
-            var groupDto = new GroupDTO()
-            {
-                GroupID = id,
-                GroupName = name,
-                Properties = this.Attributes
-            };
+        //    var groupDto = new GroupDTO()
+        //    {
+        //        GroupID = id,
+        //        GroupName = name,
+        //        Properties = this.Attributes
+        //    };
 
-            return groupDto;
-        }
+        //    return groupDto;
+        //}
     }
 }
