@@ -13,7 +13,7 @@ namespace KeycloakUserManager.API.KeycloakObjects
     {
         public string id { get; set; }
         public long createdTimestamp { get; set; }
-        public string userame { get; set; }
+        public string username { get; set; }
         public bool enabled { get; set; }
         public bool totp { get; set; }
         public bool emailVerified { get; set; }
@@ -30,7 +30,7 @@ namespace KeycloakUserManager.API.KeycloakObjects
             var dic = new Dictionary<string, object>()
             {
                 { "UserPrincipalName", String.Empty },
-                { "Name", this.userame },
+                { "Name", this.username },
                 { "Description", String.Empty },
                 { "Email", this.email },
                 { "DisplayName", string.Empty },
@@ -41,7 +41,7 @@ namespace KeycloakUserManager.API.KeycloakObjects
             var userDto = new UserDTO()
             {
                 UserID = id,
-                UserName = this.userame,
+                UserName = this.username,
                 Properties = dic
 
             };
