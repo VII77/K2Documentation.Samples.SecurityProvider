@@ -45,12 +45,19 @@
         ///</summary>
         private Logger _logger = null;
 
+        private KeycloakService _keycloakService;
+
         ///<summary>
         /// Instantiates a new SecurityProvider.
         ///</summary>
         public KeycloakSecurityProvider()
         {
             // No implementation necessary.
+
+            var httpClient = new HttpClient();
+            var configData = new ConfigurationData();
+            var keycloakapi = new KeycloakAPI(httpClient, configData);
+            _keycloakService = new KeycloakService(keycloakapi);
         }
 
         ///<summary>
@@ -166,13 +173,7 @@
         ///<returns>An IGroupCollection representing the groups which were found.</returns>
         public IGroupCollection FindGroups(string userName, IDictionary<string, object> properties, string extraData)
         {
-
-            var httpClient = new HttpClient();
-            var configData = new ConfigurationData();
-            var keycloakapi = new KeycloakAPI(httpClient, configData);
-            var keycloakService = new KeycloakService(keycloakapi);
-
-            var task = keycloakService.FindGroups((string)properties["Name"]);
+            var task = _keycloakService.FindGroups((string)properties["Name"]);
             task.Wait();
             var groups = task.Result;
             //TODO: Add group retrieval code for a specific user, using extradata
@@ -252,12 +253,7 @@
         ///<returns>An IUserCollection representing the users which were found.</returns>
         public IUserCollection FindUsers(string groupName, IDictionary<string, object> properties, string extraData)
         {
-            var httpClient = new HttpClient();
-            var configData = new ConfigurationData();
-            var keycloakapi = new KeycloakAPI(httpClient, configData);
-            var keycloakService = new KeycloakService(keycloakapi);
-
-            var task = keycloakService.FindUsers((string)properties["Name"]);
+            var task = _keycloakService.FindUsers((string)properties["Name"]);
             task.Wait();
             var users = task.Result;
 
