@@ -21,7 +21,6 @@ namespace KeycloakUserManager.Service.DTOs
         /// Queryable properties are loaded by reflection, and should be decorated with "DataMember" attribute
         /// </summary>
         private static Dictionary<string, string> propertyNames = (from property in typeof(GroupDTO).GetProperties()
-                                                                   where property.GetCustomAttributes(true).Any()
                                                                    select property)
                                                                     .ToDictionary(p => p.Name, t => "System.String");
 
