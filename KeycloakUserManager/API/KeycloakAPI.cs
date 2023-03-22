@@ -109,18 +109,19 @@ namespace KeycloakUserManager.API
             {
                 var group = await this.GetGroupByGroupName(groupName);
 
-                var url = $"{_configData.BaseUrl}groups/{group.id}/members";
-                var response = await _client.GetAsync(url);
-
-
-
-                if (!response.IsSuccessStatusCode)
+                if (group != null)
                 {
-                    throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
-                }
+                    var url = $"{_configData.BaseUrl}groups/{group.id}/members";
+                    var response = await _client.GetAsync(url);
 
-                var json = await response.Content.ReadAsStringAsync();
-                return JArray.Parse(json).ToObject<List<KeycloakUser>>();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
+                    }
+
+                    var json = await response.Content.ReadAsStringAsync();
+                    return JArray.Parse(json).ToObject<List<KeycloakUser>>();
+                }
             }
 
             return new List<KeycloakUser>();
