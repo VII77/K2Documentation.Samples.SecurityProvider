@@ -175,9 +175,8 @@
             {
                 var configData = new ConfigurationData();
                 var keycloakapi = new KeycloakAPI(httpClient, configData);
-                var _keycloakService = new KeycloakService(keycloakapi);
-                var task = _keycloakService.FindGroups((string)properties["Name"]);
-                task.Wait();
+                var keycloakService = new KeycloakService(keycloakapi);
+                var task = keycloakService.FindGroups((string)properties["Name"]);
                 var groups = task.Result;
                 return groups;
             }
@@ -257,9 +256,8 @@
             {
                 var configData = new ConfigurationData();
                 var keycloakapi = new KeycloakAPI(httpClient, configData);
-                var _keycloakService = new KeycloakService(keycloakapi);
-                var task = _keycloakService.FindUsers((string)properties["Name"]);
-                task.Wait();
+                var keycloakService = new KeycloakService(keycloakapi);
+                var task = keycloakService.FindUsers((string)properties["Name"]);
                 var users = task.Result;
                 return users;
             }
