@@ -171,22 +171,23 @@
         ///<returns>An IGroupCollection representing the groups which were found.</returns>
         public IGroupCollection FindGroups(string userName, IDictionary<string, object> properties, string extraData)
         {
-
-            var httpClient = new HttpClient();
-            var configData = new ConfigurationData();
-            var keycloakapi = new KeycloakAPI(httpClient, configData);
-            var _keycloakService = new KeycloakService(keycloakapi);
-            var task = _keycloakService.FindGroups((string)properties["Name"]);
-            task.Wait();
-            var groups = task.Result;
+            using (var httpClient = new HttpClient())
+            {
+                var configData = new ConfigurationData();
+                var keycloakapi = new KeycloakAPI(httpClient, configData);
+                var _keycloakService = new KeycloakService(keycloakapi);
+                var task = _keycloakService.FindGroups((string)properties["Name"]);
+                task.Wait();
+                var groups = task.Result;
+                return groups;
+            }
+ 
             //TODO: Add group retrieval code for a specific user, using extradata
 
             //throw new NotImplementedException();
             //if this method is not implemented in your security provider
 
             //if necessary, use the extraData parameter to perform additional processing
-
-            return groups;
         }
 
         ///<summary>
@@ -252,13 +253,17 @@
         ///<returns>An IUserCollection representing the users which were found.</returns>
         public IUserCollection FindUsers(string groupName, IDictionary<string, object> properties, string extraData)
         {
-            var httpClient = new HttpClient();
-            var configData = new ConfigurationData();
-            var keycloakapi = new KeycloakAPI(httpClient, configData);
-            var _keycloakService = new KeycloakService(keycloakapi);
-            var task = _keycloakService.FindUsers((string)properties["Name"]);
-            task.Wait();
-            var users = task.Result;
+            using (var httpClient = new HttpClient())
+            {
+                var configData = new ConfigurationData();
+                var keycloakapi = new KeycloakAPI(httpClient, configData);
+                var _keycloakService = new KeycloakService(keycloakapi);
+                var task = _keycloakService.FindUsers((string)properties["Name"]);
+                task.Wait();
+                var users = task.Result;
+                return users;
+            }
+
 
             //UserDTO x = null;
             //if (users.Count > 0)
@@ -299,7 +304,6 @@
             
             //retCol.Add(user);
 
-            return users;
         }
 
         ///<summary>
