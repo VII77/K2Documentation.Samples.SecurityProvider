@@ -11,7 +11,7 @@ namespace KeycloakUserManager.Service.DTOs
     /// <summary>
     /// The info group.
     /// </summary>
-    [ExcludeFromCodeCoverage]
+   [ExcludeFromCodeCoverage]
     public class GroupDTO : IGroup
     {
         #region Fields

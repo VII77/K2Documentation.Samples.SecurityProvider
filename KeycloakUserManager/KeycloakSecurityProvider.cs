@@ -45,7 +45,6 @@
         ///</summary>
         private Logger _logger = null;
 
-        private KeycloakService _keycloakService;
 
         ///<summary>
         /// Instantiates a new SecurityProvider.
@@ -54,10 +53,7 @@
         {
             // No implementation necessary.
 
-            var httpClient = new HttpClient();
-            var configData = new ConfigurationData();
-            var keycloakapi = new KeycloakAPI(httpClient, configData);
-            _keycloakService = new KeycloakService(keycloakapi);
+ 
         }
 
         ///<summary>
@@ -83,6 +79,8 @@
         {
             _securityLabel = label;
             _authInitData = authInit;
+
+
         }
 
         ///<summary>
@@ -173,6 +171,11 @@
         ///<returns>An IGroupCollection representing the groups which were found.</returns>
         public IGroupCollection FindGroups(string userName, IDictionary<string, object> properties, string extraData)
         {
+
+            var httpClient = new HttpClient();
+            var configData = new ConfigurationData();
+            var keycloakapi = new KeycloakAPI(httpClient, configData);
+            var _keycloakService = new KeycloakService(keycloakapi);
             var task = _keycloakService.FindGroups((string)properties["Name"]);
             task.Wait();
             var groups = task.Result;
@@ -249,6 +252,10 @@
         ///<returns>An IUserCollection representing the users which were found.</returns>
         public IUserCollection FindUsers(string groupName, IDictionary<string, object> properties, string extraData)
         {
+            var httpClient = new HttpClient();
+            var configData = new ConfigurationData();
+            var keycloakapi = new KeycloakAPI(httpClient, configData);
+            var _keycloakService = new KeycloakService(keycloakapi);
             var task = _keycloakService.FindUsers((string)properties["Name"]);
             task.Wait();
             var users = task.Result;
