@@ -10,7 +10,9 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
     using System.Net.Http;
+    using System.Xml.XPath;
 
     [ExcludeFromCodeCoverage]
     public class KeycloakSecurityProvider : IHostableSecurityProvider
@@ -44,7 +46,6 @@
         /// K2 logging context
         ///</summary>
         private Logger _logger = null;
-
 
         ///<summary>
         /// Instantiates a new SecurityProvider.
@@ -173,7 +174,7 @@
         {
             using (var httpClient = new HttpClient())
             {
-                var configData = new ConfigurationData();
+                var configData = GetConfigurationData();
                 var keycloakapi = new KeycloakAPI(httpClient, configData);
                 var keycloakService = new KeycloakService(keycloakapi);
                 var task = keycloakService.FindGroups((string)properties["Name"]);
@@ -254,7 +255,7 @@
         {
             using (var httpClient = new HttpClient())
             {
-                var configData = new ConfigurationData();
+                var configData = GetConfigurationData();
                 var keycloakapi = new KeycloakAPI(httpClient, configData);
                 var keycloakService = new KeycloakService(keycloakapi);
                 var task = keycloakService.FindUsers((string)properties["Name"]);
@@ -389,6 +390,36 @@
                 _logger.LogErrorMessage(base.GetType().ToString() + ".ResolveQueue error", "Data: " + data + " Error: " + ex.Message);
             }
             return null;
+        }
+
+        private ConfigurationData GetConfigurationData()
+        {
+            var urlsDic = new Dictionary<string, string>();
+
+            using (TextReader reader = new StringReader(this._authInitData))
+            {
+                XPathNodeIterator xpathNodeIterator = new XPathDocument((TextReader)reader).CreateNavigator().Select("KeycloakAPI/Urls/item");
+
+                while (xpathNodeIterator.MoveNext())
+                {
+                    urlsDic.Add(xpathNodeIterator.Current.GetAttribute("type", ""), xpathNodeIterator.Current.Value);
+                }
+            }
+
+            var postParamsDic = new Dictionary<string, string>();
+
+            using (TextReader reader = new StringReader(this._authInitData))
+            {
+                XPathNodeIterator xpathNodeIterator = new XPathDocument((TextReader)reader).CreateNavigator().Select("KeycloakAPI/AccessTokenPostParams/item");
+
+                while (xpathNodeIterator.MoveNext())
+                {
+                    postParamsDic.Add(xpathNodeIterator.Current.GetAttribute("type", ""), xpathNodeIterator.Current.Value);
+                }
+
+            }
+
+            return new ConfigurationData(urlsDic, postParamsDic);
         }
     }
 }

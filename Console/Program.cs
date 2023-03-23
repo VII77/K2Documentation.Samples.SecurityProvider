@@ -19,26 +19,26 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var keycloakapi = new KeycloakAPI(client, new ConfigurationData());
-            var service = new KeycloakService(keycloakapi);
-            //var task = keycloakapi.GetUserByUsername("bob");
-            var task1 = service.FindGroups("bob");
-            task1.Wait();
-            Console.WriteLine(task1.Result);
+            //var client = new HttpClient();
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //var keycloakapi = new KeycloakAPI(client, new ConfigurationData());
+            //var service = new KeycloakService(keycloakapi);
+            ////var task = keycloakapi.GetUserByUsername("bob");
+            //var task1 = service.FindGroups("bob");
+            //task1.Wait();
+            //Console.WriteLine(task1.Result);
 
-            var task2 = service.FindUsers("lalal");
-            task2.Wait();
-            Console.WriteLine(task2.Result);
+            //var task2 = service.FindUsers("lalal");
+            //task2.Wait();
+            //Console.WriteLine(task2.Result);
 
-            var task3 = service.GetGroup("testGroup11");
-            task3.Wait();
-            Console.WriteLine(task3.Result);
+            //var task3 = service.GetGroup("testGroup11");
+            //task3.Wait();
+            //Console.WriteLine(task3.Result);
 
-            var task4 = service.GetUser("asd");
-            task4.Wait();
-            Console.WriteLine(task4.Result);
+            //var task4 = service.GetUser("asd");
+            //task4.Wait();
+            //Console.WriteLine(task4.Result);
         }
     }
 }

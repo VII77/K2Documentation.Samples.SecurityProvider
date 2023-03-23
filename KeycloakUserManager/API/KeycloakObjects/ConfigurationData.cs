@@ -11,23 +11,35 @@ namespace KeycloakUserManager.API.KeycloakObjects
 {
     public class ConfigurationData
     {
-        public string BaseUrl { get ; set; }
-        public string AccessTokenRequestUrl { get; set; }
 
-        public Dictionary<string, string> AccessTokenRequestPostParams { get; set; }
 
-        public ConfigurationData()
+        public string BaseUrl { get => _baseUrl ; }
+        public string AccessTokenRequestUrl { get => _accessTokenRequestUrl; }
+        public Dictionary<string, string> AccessTokenRequestPostParams { get => _accessTokenRequestPostParams; }
+
+
+        private string _baseUrl;
+        private string _accessTokenRequestUrl;
+        private Dictionary<string, string> _accessTokenRequestPostParams;
+
+
+        public ConfigurationData(Dictionary<string,string> urls, Dictionary<string,string> postParams)
         {
-            this.BaseUrl = "http://localhost:8080/admin/realms/Test/";
-            this.AccessTokenRequestUrl = "http://localhost:8080/realms/Test/protocol/openid-connect/token";
-            this.AccessTokenRequestPostParams = new Dictionary<string, string>() {
-            { "username", "ulrich"},
-            { "password", "notebook1!"},
-            { "client_id", "test"},
-            { "client_secret", "WDt2lwJj1ZY7OLOP7V8w9UvKjLbn1Q7n" },
-            { "grant_type", "password" },
-            {"scope", "openid" }
-            };
+            this._baseUrl = urls["BaseUrl"];
+            this._accessTokenRequestUrl = urls["AccessTokenRequestUrl"];
+
+            this._accessTokenRequestPostParams = postParams;
+
+            //this.BaseUrl = "http://localhost:8080/admin/realms/Test/";
+            //this.AccessTokenRequestUrl = "http://localhost:8080/realms/Test/protocol/openid-connect/token";
+            //this.AccessTokenRequestPostParams = new Dictionary<string, string>() {
+            //{ "username", "ulrich"},
+            //{ "password", "notebook1!"},
+            //{ "client_id", "test"},
+            //{ "client_secret", "WDt2lwJj1ZY7OLOP7V8w9UvKjLbn1Q7n" },
+            //{ "grant_type", "password" },
+            //{"scope", "openid" }
+            //};
 
             //Configuration config = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
             //var col = ConfigurationManager.GetSection("KeycloakAPI/AccessTokenPostParams") as NameValueCollection;
