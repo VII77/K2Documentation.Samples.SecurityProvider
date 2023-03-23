@@ -25,30 +25,6 @@ namespace KeycloakUserManager.API.KeycloakObjects
         public List<object> requiredActions { get; set; }
         public int notBefore { get; set; }
         public Access access { get; set; }
-
-        public UserDTO MapToUserDTO()
-        {
-            var dic = new Dictionary<string, object>()
-            {
-                { "UserPrincipalName", String.Empty },
-                { "Name", this.username },
-                { "Description", String.Empty },
-                { "Email", this.email },
-                { "DisplayName", string.Empty },
-                { "CommonName", String.Empty },
-                { "ObjectSID", this.id },
-            };
-
-            var userDto = new UserDTO()
-            {
-                UserID = id,
-                UserName = this.username,
-                Properties = dic
-
-            };
-
-            return userDto;
-        }
     }
 
     public class Access

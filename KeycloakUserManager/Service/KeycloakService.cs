@@ -33,12 +33,7 @@ namespace KeycloakUserManager.Service
             groupName = groupName?.Trim(new char[1] { '*' });
             var users = await _keycloakAPI.GetGroupMembers(groupName);
             var result = new UserCollectionDTO();
-            users.ForEach(user => {
-            if (user != null)
-            {
-                result.Add(user.MapToUserDTO());
-            }});
-
+            users.ForEach(user => result.Add(new UserDTO(user)));
             return result;
         }
     }
