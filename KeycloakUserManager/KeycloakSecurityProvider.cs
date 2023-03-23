@@ -395,22 +395,19 @@
         private ConfigurationData GetConfigurationData()
         {
             var urlsDic = new Dictionary<string, string>();
+            var postParamsDic = new Dictionary<string, string>();
 
             using (TextReader reader = new StringReader(this._authInitData))
             {
-                XPathNodeIterator xpathNodeIterator = new XPathDocument((TextReader)reader).CreateNavigator().Select("KeycloakAPI/Urls/item");
+                var navigator = new XPathDocument((TextReader)reader).CreateNavigator();
+                var xpathNodeIterator =  navigator.Select("AuthInit/KeycloakAPI/Urls/item");
 
                 while (xpathNodeIterator.MoveNext())
                 {
                     urlsDic.Add(xpathNodeIterator.Current.GetAttribute("type", ""), xpathNodeIterator.Current.Value);
                 }
-            }
 
-            var postParamsDic = new Dictionary<string, string>();
-
-            using (TextReader reader = new StringReader(this._authInitData))
-            {
-                XPathNodeIterator xpathNodeIterator = new XPathDocument((TextReader)reader).CreateNavigator().Select("KeycloakAPI/AccessTokenPostParams/item");
+                xpathNodeIterator = navigator.Select("AuthInit/KeycloakAPI/AccessTokenPostParams/item");
 
                 while (xpathNodeIterator.MoveNext())
                 {

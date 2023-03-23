@@ -25,8 +25,8 @@ namespace KeycloakUserManager.API.KeycloakObjects
 
         public ConfigurationData(Dictionary<string,string> urls, Dictionary<string,string> postParams)
         {
-            this._baseUrl = urls["BaseUrl"];
-            this._accessTokenRequestUrl = urls["AccessTokenRequestUrl"];
+            this._baseUrl = urls["baseUrl"];
+            this._accessTokenRequestUrl = urls["RequestAccessTokenUrl"];
 
             this._accessTokenRequestPostParams = postParams;
 
