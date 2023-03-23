@@ -30,9 +30,8 @@ namespace KeycloakUserManager.Service
 
         public async Task<UserCollectionDTO> FindUsers(string groupName)
         {
-            var search = groupName.StartsWith("*") || groupName.EndsWith("*");
             groupName = groupName?.Trim(new char[1] { '*' });
-            var users = await _keycloakAPI.GetGroupMembers(groupName, search);
+            var users = await _keycloakAPI.GetGroupMembers(groupName);
             var result = new UserCollectionDTO();
             users.ForEach(user => {
             if (user != null)
