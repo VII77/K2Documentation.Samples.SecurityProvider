@@ -47,7 +47,7 @@ namespace KeycloakUserManager.Service.DTOs
         /// <param name="groupData">The <see cref="SimplexInfoGroup"/></param>
         public GroupDTO(KeycloakGroup keycloakGroup)
         {
-            this.GroupID = keycloakGroup.id;
+            this.GroupID = keycloakGroup.name;
             this.Name = keycloakGroup.name;
             this.GroupName = keycloakGroup.name;
             this.Description = string.Empty;

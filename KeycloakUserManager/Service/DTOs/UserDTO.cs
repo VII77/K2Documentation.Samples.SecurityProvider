@@ -30,7 +30,7 @@ namespace KeycloakUserManager.Service.DTOs
                 { "Name", user.username },
                 { "Description", String.Empty },
                 { "Email", user.email },
-                { "DisplayName", string.Empty },
+                { "DisplayName", user.firstName + " " + user.lastName },
                 { "CommonName", String.Empty },
                 { "ObjectSID", user.id },
             };
