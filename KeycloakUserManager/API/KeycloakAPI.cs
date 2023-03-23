@@ -45,7 +45,7 @@ namespace KeycloakUserManager.API
 
         }
 
-        public async Task<KeycloakUser> GetUserByUsername(string username, bool search)
+        public async Task<List<KeycloakUser>> GetUsersByUsername(string username, bool search)
         {
             Dictionary<string, string> queryParameters;
 
@@ -71,10 +71,10 @@ namespace KeycloakUserManager.API
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            return JArray.Parse(json).ToObject<List<KeycloakUser>>().FirstOrDefault();
+            return JArray.Parse(json).ToObject<List<KeycloakUser>>();
         }
 
-        public async Task<KeycloakGroup> GetGroupByGroupName(string groupName)
+        public async Task<List<KeycloakGroup>> GetGroupsByGroupName(string groupName)
         {
 
             var queryParameters = new Dictionary<string, string> { { "search", groupName } };
@@ -86,58 +86,13 @@ namespace KeycloakUserManager.API
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
+                throw new Exception($"Failed to get groups. Status code: {response.StatusCode}");
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            return JArray.Parse(json).ToObject<List<KeycloakGroup>>().FirstOrDefault();
+            return JArray.Parse(json).ToObject<List<KeycloakGroup>>();
         }
 
-        public async Task<List<KeycloakGroup>> GetGroupsByUsername(string username, bool search)
-        {
-            var user = await this.GetUserByUsername(username, search);
-
-            if (user !=null)
-            {
-                var url = $"{_configData.BaseUrl}users/{user.id}/groups";
-                var response = await _client.GetAsync(url);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
-                }
-
-                var json = await response.Content.ReadAsStringAsync();
-                return JArray.Parse(json).ToObject<List<KeycloakGroup>>();
-            }
-
-            return new List<KeycloakGroup>();
-
-        }
-
-        public async Task<List<KeycloakUser>> GetGroupMembers(string groupName)
-        {
-            if (groupName != null)
-            {
-                var group = await this.GetGroupByGroupName(groupName);
-
-                if (group != null)
-                {
-                    var url = $"{_configData.BaseUrl}groups/{group.id}/members";
-                    var response = await _client.GetAsync(url);
-
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        throw new Exception($"Failed to get users. Status code: {response.StatusCode}");
-                    }
-
-                    var json = await response.Content.ReadAsStringAsync();
-                    return JArray.Parse(json).ToObject<List<KeycloakUser>>();
-                }
-            }
-
-            return new List<KeycloakUser>();
-        }
     }
 
 }

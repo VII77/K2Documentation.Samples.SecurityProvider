@@ -18,23 +18,24 @@ namespace KeycloakUserManager.Service
             _keycloakAPI = keycloakAPI;
         }
 
-        public async Task<GroupCollectionDTO> FindGroups(string username)
+        public async Task<GroupCollectionDTO> FindGroups(string groupname)
         {
-            var search = username.StartsWith("*") || username.EndsWith("*");
-            username = username?.Trim(new char[1] { '*' });
-            var groups = await _keycloakAPI.GetGroupsByUsername(username, search);
+            groupname = groupname?.Trim(new char[1] { '*' });
+            var groups = await _keycloakAPI.GetGroupsByGroupName(groupname);
             var result = new GroupCollectionDTO();
             groups.ForEach(group => result.Add(new GroupDTO(group)));
             return result;
         }
 
-        public async Task<UserCollectionDTO> FindUsers(string groupName)
+        public async Task<UserCollectionDTO> FindUsers(string username)
         {
-            groupName = groupName?.Trim(new char[1] { '*' });
-            var users = await _keycloakAPI.GetGroupMembers(groupName);
+            var search = username.StartsWith("*") || username.EndsWith("*");
+            username = username?.Trim(new char[1] { '*' });
+            var users = await _keycloakAPI.GetUsersByUsername(username, search);
             var result = new UserCollectionDTO();
-            users.ForEach(user => result.Add(new UserDTO(user)));
+            users.ForEach(group => result.Add(new UserDTO(group)));
             return result;
+
         }
     }
 }
