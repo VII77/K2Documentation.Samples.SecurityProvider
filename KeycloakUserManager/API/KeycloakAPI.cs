@@ -45,9 +45,20 @@ namespace KeycloakUserManager.API
 
         }
 
-        public async Task<KeycloakUser> GetUserByUsername(string username)
+        public async Task<KeycloakUser> GetUserByUsername(string username, bool search)
         {
-            var queryParameters = new Dictionary<string, string> {{ "username", username }};
+            Dictionary<string, string> queryParameters;
+
+            if (search)
+            {
+                queryParameters = new Dictionary<string, string> { { "search", username } };
+
+            }
+            else
+            {
+                queryParameters = new Dictionary<string, string> { { "username", username } };
+            }
+
             var dictFormUrlEncoded = new FormUrlEncodedContent(queryParameters);
             var queryString = await dictFormUrlEncoded.ReadAsStringAsync();
 
@@ -63,9 +74,20 @@ namespace KeycloakUserManager.API
             return JArray.Parse(json).ToObject<List<KeycloakUser>>().FirstOrDefault();
         }
 
-        public async Task<KeycloakGroup> GetGroupByGroupName(string groupName)
+        public async Task<KeycloakGroup> GetGroupByGroupName(string groupName, bool search)
         {
-            var queryParameters = new Dictionary<string, string> { { "search", groupName } };
+            Dictionary<string, string> queryParameters;
+
+            if (search)
+            {
+                queryParameters = new Dictionary<string, string> { { "search", groupName } };
+
+            }
+            else
+            {
+                queryParameters = new Dictionary<string, string> { { "groupname", groupName } };
+            }
+
             var dictFormUrlEncoded = new FormUrlEncodedContent(queryParameters);
             var queryString = await dictFormUrlEncoded.ReadAsStringAsync();
 
@@ -81,9 +103,9 @@ namespace KeycloakUserManager.API
             return JArray.Parse(json).ToObject<List<KeycloakGroup>>().FirstOrDefault();
         }
 
-        public async Task<List<KeycloakGroup>> GetGroupsByUsername(string username)
+        public async Task<List<KeycloakGroup>> GetGroupsByUsername(string username, bool search)
         {
-            var user = await this.GetUserByUsername(username);
+            var user = await this.GetUserByUsername(username, search);
 
             if (user !=null)
             {
@@ -103,11 +125,11 @@ namespace KeycloakUserManager.API
 
         }
 
-        public async Task<List<KeycloakUser>> GetGroupMembers(string groupName)
+        public async Task<List<KeycloakUser>> GetGroupMembers(string groupName, bool search)
         {
             if (groupName != null)
             {
-                var group = await this.GetGroupByGroupName(groupName);
+                var group = await this.GetGroupByGroupName(groupName, search);
 
                 if (group != null)
                 {
